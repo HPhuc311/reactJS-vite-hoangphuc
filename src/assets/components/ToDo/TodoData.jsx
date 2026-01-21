@@ -1,5 +1,5 @@
 const TodoData = (props) => {
-
+    const { todoList } = props;
     //props là 1 biến object {}
     //{
     // name: "HoangPhuc",
@@ -7,19 +7,27 @@ const TodoData = (props) => {
     // data: {}
     //}
     // ---- destructuring data (Method 1) ----
-    const { name } = props;
+    // const { name } = props;
     //-----Method 2--------
     // const name = props.name;
     // const age = props.age;
     // const data = props.data;
     //-------Method 3-------
 
-    console.log(">> check props", props)
+    console.log(">> check props", todoList)
     return (
         <div className='todo-data'>
-            <div>My name is {name}</div>
-            <div>Learning REACT</div>
-            <div>Watching Youtube</div>
+            {todoList.map((item, index) => {
+                console.log(item, index)
+                return (
+                    <>
+                        <div className="todo-item">
+                            <div>{item.name}</div>
+                            <button>Delete</button>
+                        </div>
+                    </>
+                )
+            })}
             <div>
                 {JSON.stringify(props.todoList)}
             </div>

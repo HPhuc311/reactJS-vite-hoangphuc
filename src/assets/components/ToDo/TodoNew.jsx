@@ -10,6 +10,7 @@ const TodoNew = (props) => {
     // addNewTodo("hoangphuc")
     const handleClick = () => {
         addNewTodo(valueInput)
+        setValueInput(""); // giá trị nhập xong sẽ được làm cho ô nhập vào rỗng
     }
     // lấy giá trị ô input
     const handleChange = (name) => {
@@ -20,6 +21,7 @@ const TodoNew = (props) => {
         <div className='todo-new'>
             <input type="text" placeholder='Enter your task' 
             onChange={(event) => {handleChange(event.target.value)}}
+            value={valueInput} // kiểm soát giá trị đầu vào
             />
             <button
                 style={{ cursor: "pointer" }}
