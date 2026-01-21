@@ -29,6 +29,7 @@ const App = () => {
 
   // Xoá 1 dữ liệu trong bảng dựa vào id 
   const deleToDo = (id) => {
+    //lọc các phần tử có id giống nhau 
     const newTodo = todoList.filter(item => item.id !== id)
     setTodoList(newTodo);
   }
