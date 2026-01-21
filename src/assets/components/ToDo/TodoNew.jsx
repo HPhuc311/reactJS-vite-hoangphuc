@@ -1,14 +1,19 @@
-const TodoNew = (props) => {
-    // eslint-disable-next-line react/prop-types
-    const { addNewTodo } = props;
+import { useState } from "react"
 
-    addNewTodo("hoangphuc")
+const TodoNew = () => {
+    // useStateHook (getter, setter)
+    // const valueInput = "Hello";
+    const [valueInput, setValueInput] = useState("ericsss")
+    
+    // const { addNewTodo } = props;
+
+    // addNewTodo("hoangphuc")
     const handleClick = () => {
-        alert("Click Me")
+        console.log("check value input:", valueInput)
     }
     // lấy giá trị ô input
     const handleChange = (name) => {
-        console.log(">>>> handle on change", name)
+        setValueInput(name)
     }
 
     return (
@@ -20,6 +25,9 @@ const TodoNew = (props) => {
                 style={{ cursor: "pointer" }}
                 onClick={handleClick}
             >Add</button>
+            <div>
+                My text input is = {valueInput}
+            </div>
         </div>
     );
 }
