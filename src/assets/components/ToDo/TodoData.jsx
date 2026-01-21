@@ -1,5 +1,5 @@
 const TodoData = (props) => {
-    const { todoList } = props;
+    const { todoList, deleToDo } = props;
     //props là 1 biến object {}
     //{
     // name: "HoangPhuc",
@@ -14,6 +14,10 @@ const TodoData = (props) => {
     // const data = props.data;
     //-------Method 3-------
 
+    const handleClick = (id) => {
+        deleToDo(id)
+    }
+
     console.log(">> check props", todoList)
     return (
         <div className='todo-data'>
@@ -23,7 +27,10 @@ const TodoData = (props) => {
                     <>
                         <div className={`todo-item`} key={item.id}>
                             <div>{item.name}</div>
-                            <button>Delete</button>
+                            <button
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => handleClick(item.id)} >
+                            Delete</button>
                         </div>
                     </>
                 )
