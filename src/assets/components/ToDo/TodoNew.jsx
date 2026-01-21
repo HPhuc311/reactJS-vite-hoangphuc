@@ -1,7 +1,8 @@
 const TodoNew = (props) => {
+    // eslint-disable-next-line react/prop-types
     const { addNewTodo } = props;
 
-    // addNewTodo("hoangphuc")
+    addNewTodo("hoangphuc")
     const handleClick = () => {
         alert("Click Me")
     }
