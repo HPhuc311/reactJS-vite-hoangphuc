@@ -8,16 +8,11 @@ import reactLogo from './assets/react.svg'
 const App = () => {
 
   const [todoList, setTodoList] = useState([
-    {id: 1, name: "Learning React"},
-    {id: 2, name: "Watching Youtube"}
+    // {id: 1, name: "Learning React"},
+    // {id: 2, name: "Watching Youtube"}
   ])
 
-  const name = "HoangPhuc, MU";
-  const age = 25;
-  const data = {
-    address: "hcm",
-    country: "vie"
-  }
+
 
   const addNewTodo = (name) => {
     const newTodo = {
@@ -26,13 +21,11 @@ const App = () => {
     }
     setTodoList([...todoList, newTodo])
   }
+
 // Tạo 1 id ngẫu nhiên
   const randomIntFromInterval = (min, max) => { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-
-
-
 
   return (
     <div className="todo-container">
@@ -41,9 +34,6 @@ const App = () => {
         addNewTodo={addNewTodo} 
       />
       <TodoData
-        name={name}
-        age={age}
-        data={data}
         todoList = {todoList}
       />
       <div className="todo-image">
