@@ -1,15 +1,15 @@
 import { useState } from "react"
 
-const TodoNew = () => {
+const TodoNew = (props) => {
     // useStateHook (getter, setter)
     // const valueInput = "Hello";
     const [valueInput, setValueInput] = useState("ericsss")
     
-    // const { addNewTodo } = props;
+    const { addNewTodo } = props;
 
     // addNewTodo("hoangphuc")
     const handleClick = () => {
-        console.log("check value input:", valueInput)
+        addNewTodo(valueInput)
     }
     // lấy giá trị ô input
     const handleChange = (name) => {
@@ -25,9 +25,6 @@ const TodoNew = () => {
                 style={{ cursor: "pointer" }}
                 onClick={handleClick}
             >Add</button>
-            <div>
-                My text input is = {valueInput}
-            </div>
         </div>
     );
 }
