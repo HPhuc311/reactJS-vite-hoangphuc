@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom';
+/* eslint-disable no-unused-vars */
+import { Link, NavLink } from 'react-router-dom';
 import './header.css'
 
 
 // Link giúp trang không bị reload tăng trải nghiệm của người dùng
+// NavLink giúp thêm class active khi điều hướng trang
 const Header = () => {
     return (
         <ul>
-            <li><Link className="active" to="#home">Home</Link></li>
-            <li><Link to="/users">Users</Link></li>
-            <li><Link to="/products">Products</Link></li>
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/users">Users</NavLink></li>
+            <li><NavLink to="/products">Products</NavLink></li>
         </ul>
 
     );
