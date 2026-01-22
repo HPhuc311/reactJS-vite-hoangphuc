@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import './assets/components/ToDo/todo.css';
-import TodoData from './assets/components/ToDo/TodoData';
-import TodoNew from './assets/components/ToDo/TodoNew';
+import './components/ToDo/todo.css';
+import TodoData from './components/ToDo/TodoData';
+import TodoNew from './components/ToDo/TodoNew';
 import reactLogo from './assets/react.svg'
 
 
