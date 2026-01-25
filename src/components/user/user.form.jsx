@@ -1,6 +1,7 @@
-import { Button, Input } from "antd";
+import { Button, Input, notification } from "antd";
 import { useState } from "react";
-import axios from "axios";
+import { createUserApi } from "../../services/api.services";
+
 
 const UserForm = () => {
     const [fullName, setfullName] = useState("");
@@ -8,16 +9,20 @@ const UserForm = () => {
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
 
-    const handleClickBtn = () => {
-        const URL_BACKEND = "http://localhost:8080/api/v1/user";
-        const data = {
-            fullName: fullName, 
-            email: email, 
-            password: password, 
-            phone: phone
+    const handleClickBtn = async () => {
+        const res = await createUserApi(fullName, email, password, phone)
+        if (res.data) {
+            notification.success({
+                message: "Create User",
+                description: "Tạo user thành công"
+            })
+        } else {
+            notification.error({
+                message: "Error Create User",
+                description: JSON.stringify(res.message)
+            })
         }
-        axios.post(URL_BACKEND, data)
-        console.log(">>>>> Check form :", {fullName, email, password, phone});
+
     }
 
     return (
@@ -39,19 +44,19 @@ const UserForm = () => {
                 </div>
                 <div>
                     <span>Password</span>
-                    <Input.Password 
+                    <Input.Password
                         onChange={(event) => { setPassword(event.target.value) }}
                         value={password}
                     />
                 </div>
                 <div>
                     <span>Phone Number</span>
-                    <Input 
+                    <Input
                         onChange={(event) => { setPhone(event.target.value) }}
                         value={phone} />
                 </div>
                 <div>
-                    <Button type="primary" onClick={() => handleClickBtn ()}> Create User </Button>
+                    <Button type="primary" onClick={() => handleClickBtn()}> Create User </Button>
                 </div>
             </div>
         </div>
