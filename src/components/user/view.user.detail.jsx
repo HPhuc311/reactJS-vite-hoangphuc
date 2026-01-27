@@ -44,7 +44,7 @@ const ViewUserDetails = (props) => {
             } else {
                 notification.error({
                     message: "Error Upload File",
-                    description: JSON.stringify(resUpload.message)
+                    description: JSON.stringify(resUpdateAvatar.message)
                 })
             }
 
