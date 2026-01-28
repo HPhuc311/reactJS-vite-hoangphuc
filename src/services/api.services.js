@@ -58,7 +58,20 @@ const updateAvatarApi = (avatar, _id, fullName, phone ) => {
 
 }
 
+const registerUserApi = (fullName, email, password, phone) => {
+    const URL_BACKEND = "/api/v1/user/register";
+    const data = {
+        fullName: fullName,
+        email: email,
+        password: password,
+        phone: phone
+    }
+    return axios.post(URL_BACKEND, data);
+}
+
+
+
 
 export {
-    updateUserApi, createUserApi, fetchAllUserAPi, deleteUserApi, handleUploadFile, updateAvatarApi
+    updateUserApi, createUserApi, fetchAllUserAPi, deleteUserApi, handleUploadFile, updateAvatarApi, registerUserApi
 }
