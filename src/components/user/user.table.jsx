@@ -8,7 +8,7 @@ import { deleteUserApi } from '../../services/api.services';
 
 
 const UserTable = (props) => {
-    const { dataUsers, loadUser } = props;
+    const { dataUsers, loadUser, current, pageSize, total, setpageSize, setCurrent } = props;
 
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
 
@@ -20,7 +20,7 @@ const UserTable = (props) => {
 
     const handleDeleteUser = async (id) => {
         const res = await deleteUserApi(id);
-        if (res.data){
+        if (res.data) {
             notification.success({
                 message: "Delete User",
                 description: "Delete User Thành Công"
@@ -39,8 +39,8 @@ const UserTable = (props) => {
             title: "STT",
             render: (_, record, index) => {
                 console.log("check index", index)
-                return(
-                    <>{index + 1}</>
+                return (
+                    <>{(index + 1) + (current - 1) * pageSize}</>
                 );
             }
         },
@@ -50,10 +50,10 @@ const UserTable = (props) => {
             render: (_, record) => {
                 return (
                     <a href='#'
-                    onClick={() => {
-                        setIsDetailOpen(true)
-                        setDataDetail(record)
-                    }}
+                        onClick={() => {
+                            setIsDetailOpen(true)
+                            setDataDetail(record)
+                        }}
                     >{record._id}</a>
                 );
             }
@@ -86,7 +86,7 @@ const UserTable = (props) => {
                             cancelText="No"
                             placement='left'
                         >
-                        <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                            <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
                         </Popconfirm>
                     </div>
                 </Space>
@@ -95,20 +95,47 @@ const UserTable = (props) => {
     ];
 
 
+    const onChange = (pagination, filters, sorter, extra) => { 
+        //nếu thay đổi trang: current
+        if (pagination && pagination.current){
+            if(+pagination.current !== +current){
+                setCurrent(+pagination.current) //"5" -> 5
+            }
+        }
+        //nếu thay đổi trang: pageSize
+        if (pagination && pagination.pageSize){
+            if(+pagination.pageSize !== +pageSize){
+                setpageSize(+pagination.pageSize) //"5" -> 5
+            }
+        }
+        console.log("check pla lpla", {pagination, filters, sorter, extra})
+    };
+
     return (
         <>
             <Table
                 columns={columns}
                 dataSource={dataUsers}
-                rowKey={"_id"} />
+                rowKey={"_id"}
+                pagination={
+                    {
+                        current: current,
+                        pageSize: pageSize,
+                        showSizeChanger: true,
+                        total: total,
+                        showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
+                    }
+                }
+                onChange={onChange}
+            />
 
             <UpdateUserModal
                 isModalUpdateOpen={isModalUpdateOpen}
-                setIsModalUpdateOpen= {setIsModalUpdateOpen} 
-                dataUpdate = {dataUpdate}
-                setDataUpdate = {setDataUpdate}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
                 loadUser={loadUser}
-                />
+            />
 
             <ViewUserDetails
                 dataDetail={dataDetail}
