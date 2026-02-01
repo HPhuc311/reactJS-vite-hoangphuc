@@ -1,10 +1,31 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Divider, Form, Input, Row } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Checkbox, Col, Divider, Form, Input, message, notification, Row } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUserApi } from "../services/api.services";
+import { useState } from "react";
 
 const LoginPage = () => {
 
     const [form] = Form.useForm()
+
+    const [loading, setLoading] = useState(false)
+
+    const navigate = useNavigate();
+
+    const onFinish = async (values) => {
+        setLoading(true)
+        const res = await loginUserApi(values.email, values.password)
+        if (res.data) {
+            message.success("Success Login")
+            navigate("/")
+        } else {
+            notification.error({
+                message: "Error Login",
+                description: JSON.stringify(res.message)
+            })
+        }
+        setLoading(false)
+    }
     return (
         <Row justify={"center"} style={{ marginTop: "30px" }}>
             <Col xs={24} md={16} lg={8}>
@@ -18,7 +39,7 @@ const LoginPage = () => {
                     <Form
                         form={form}
                         layout="vertical"
-                        // onFinish={onFinish}
+                        onFinish={onFinish}
                     >
                         <Form.Item
                             label="Email"
@@ -45,11 +66,11 @@ const LoginPage = () => {
 
                         <Form.Item>
                             <div style={{
-                                display:"flex",
+                                display: "flex",
                                 justifyContent: "space-between",
                                 alignItems: "center"
                             }}>
-                                <Button type="primary" onClick={() => form.submit()}>
+                                <Button loading={loading} type="primary" onClick={() => form.submit()}>
                                     Login
                                 </Button>
                                 <Link to={"/"}>Go to homepage <ArrowRightOutlined /></Link>
