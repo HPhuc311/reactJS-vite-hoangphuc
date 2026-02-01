@@ -2,7 +2,8 @@
 import { Link,} from 'react-router-dom';
 import { Menu } from 'antd';
 import {BookOutlined, HomeOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons';
-import { Children, useState } from 'react';
+import { Children, useContext, useState } from 'react';
+import { AuthContext } from '../context/auth.context';
 
 
 // Link giúp trang không bị reload tăng trải nghiệm của người dùng
@@ -10,6 +11,10 @@ import { Children, useState } from 'react';
 const Header = () => {
 
     const [current, setCurrent] = useState('mail');
+
+    const {user} = useContext(AuthContext);
+    console.log('user', user)
+
     const onClick = e => {
         console.log('click ', e);
         setCurrent(e.key);
