@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { Link,} from 'react-router-dom';
 import { Menu } from 'antd';
-import {BookOutlined, HomeOutlined, UsergroupAddOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import {BookOutlined, HomeOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { Children, useState } from 'react';
 
 
 // Link giúp trang không bị reload tăng trải nghiệm của người dùng
@@ -31,6 +31,21 @@ const Header = () => {
             label: <Link to={"/books"}>Books</Link>,
             key: 'products',
             icon: <BookOutlined />,
+        },
+        {
+            label: "Setting",
+            key: 'setting',
+            icon: <SettingOutlined />,
+            children:[
+                {
+                    label: <Link to={"/login"}>Login</Link>,
+                    key: "login",
+                },
+                {
+                    label:'Đăng Xuất',
+                    key: "login",
+                },
+            ]
         },
     ];
 
