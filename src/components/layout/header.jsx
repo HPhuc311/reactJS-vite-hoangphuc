@@ -14,11 +14,11 @@ const Header = () => {
 
     const { user, setUser } = useContext(AuthContext);
 
-        const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
-    const handleLogOut = async() => {
+    const handleLogOut = async () => {
         const res = await logOutApi();
-        if(res.data){
+        if (res.data) {
             // Clear data
             localStorage.removeItem("access_token")
             setUser({
@@ -35,11 +35,7 @@ const Header = () => {
         }
     }
 
-
-
-
     const onClick = e => {
-        console.log('click ', e);
         setCurrent(e.key);
     };
 

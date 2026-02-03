@@ -13,7 +13,6 @@ const UserPage = () => {
 
     useEffect(() => {
         loadUser()
-
     }, [current, pageSize]);
 
 
