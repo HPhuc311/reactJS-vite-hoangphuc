@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { Link,} from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import { Menu } from 'antd';
-import {BookOutlined, HomeOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { AliwangwangFilled, AliwangwangOutlined, BookOutlined, HomeOutlined, LoginOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { Children, useContext, useState } from 'react';
 import { AuthContext } from '../context/auth.context';
 
@@ -10,16 +10,13 @@ import { AuthContext } from '../context/auth.context';
 // NavLink giúp thêm class active khi điều hướng trang
 const Header = () => {
 
-    const [current, setCurrent] = useState('mail');
-
-    const {user} = useContext(AuthContext);
-    console.log('user', user)
+    const [current, setCurrent] = useState('');
+    const { user } = useContext(AuthContext);
 
     const onClick = e => {
         console.log('click ', e);
         setCurrent(e.key);
     };
-
 
     const items = [
         {
@@ -37,24 +34,29 @@ const Header = () => {
             key: 'products',
             icon: <BookOutlined />,
         },
-        {
-            label: "Setting",
+
+        ...(!user.id ? [{
+            label: <Link to={"/login"}>Login</Link>,
+            key: 'login',
+            icon: <LoginOutlined />,
+        }] : []),
+
+
+        ...(user.id ? [{
+            label: `Welcome ${user.fullName}`,
             key: 'setting',
-            icon: <SettingOutlined />,
-            children:[
+            icon: <AliwangwangOutlined />,
+            children: [
                 {
-                    label: <Link to={"/login"}>Login</Link>,
-                    key: "login",
-                },
-                {
-                    label:'Đăng Xuất',
+                    label: 'Log Out',
                     key: "login",
                 },
             ]
-        },
+        },] : []),
+
     ];
 
-    
+
     return (
         <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
 

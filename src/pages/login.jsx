@@ -9,7 +9,7 @@ const LoginPage = () => {
 
     const [form] = Form.useForm()
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
     const { setUser } = useContext(AuthContext);
 
 
@@ -64,7 +64,9 @@ const LoginPage = () => {
                             name="password"
                             rules={[{ required: true, message: 'Please input your password!' }]}
                         >
-                            <Input.Password />
+                            <Input.Password onKeyDown={(event) => { 
+                                if (event === 'Enter')form.submit()
+                            }}/>
                         </Form.Item>
 
                         <Form.Item>
