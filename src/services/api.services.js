@@ -92,3 +92,5 @@ const logOutApi = () => {
 export {
     updateUserApi, createUserApi, fetchAllUserAPi, deleteUserApi, handleUploadFile, updateAvatarApi, registerUserApi, loginUserApi, getAccountApi, logOutApi
 }
+
+
