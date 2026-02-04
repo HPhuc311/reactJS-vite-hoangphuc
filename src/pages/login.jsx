@@ -18,7 +18,7 @@ const LoginPage = () => {
         const res = await loginUserApi(values.email, values.password)
         if (res.data) {
             message.success("Success Login")
-            localStorage.setItem("access_token,", res.data.access_token)
+            localStorage.setItem("access_token", res.data.access_token)
             setUser(res.data.user);
             navigate("/")
         } else {

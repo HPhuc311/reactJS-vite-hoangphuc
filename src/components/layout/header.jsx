@@ -16,6 +16,10 @@ const Header = () => {
 
     const navigate = useNavigate();
 
+    const onClick = e => {
+        setCurrent(e.key);
+    };
+
     const handleLogOut = async () => {
         const res = await logOutApi();
         if (res.data) {
@@ -34,10 +38,6 @@ const Header = () => {
             navigate("/");
         }
     }
-
-    const onClick = e => {
-        setCurrent(e.key);
-    };
 
     const items = [
         {
