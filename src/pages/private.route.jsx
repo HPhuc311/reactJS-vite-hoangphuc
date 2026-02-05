@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { AuthContext } from "../components/context/auth.context";
-import { Navigate } from "react-router-dom";
 import { Button, Result } from "antd";
 import Link from "antd/es/typography/Link";
 

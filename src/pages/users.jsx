@@ -5,7 +5,6 @@ import { fetchAllUserAPi } from '../services/api.services';
 
 const UserPage = () => {
     const [dataUsers, setDataUsers] = useState([]);
-
     const [current, setCurrent] = useState(1)
     const [pageSize, setpageSize] = useState(5)
     const [total, setTotal] = useState(0);
@@ -25,9 +24,6 @@ const UserPage = () => {
             setTotal(res.data.meta.total)
         }
     }
-
-    console.log("check current: ", current)
-
 
     return (
         <div style={{ padding: "20px" }}>

@@ -1,14 +1,14 @@
 import axios from "./axios.customize";
 
 const createUserApi = (fullName, email, password, phone) => {
-     const URL_BACKEND = "/api/v1/user";
-        const data = {
-            fullName: fullName, 
-            email: email, 
-            password: password, 
-            phone: phone
-        }
-     return axios.post(URL_BACKEND, data);
+    const URL_BACKEND = "/api/v1/user";
+    const data = {
+        fullName: fullName,
+        email: email,
+        password: password,
+        phone: phone
+    }
+    return axios.post(URL_BACKEND, data);
 }
 
 const updateUserApi = (_id, fullName, phone) => {
@@ -37,7 +37,7 @@ const handleUploadFile = (file, folder) => {
     let config = {
         headers: {
             "upload-type": folder,
-            "Content-Type": "multipart/form-data" 
+            "Content-Type": "multipart/form-data"
         }
     }
     const bodyFormData = new FormData();
@@ -46,7 +46,7 @@ const handleUploadFile = (file, folder) => {
     return axios.post(URL_BACKEND, bodyFormData, config)
 }
 
-const updateAvatarApi = (avatar, _id, fullName, phone ) => {
+const updateAvatarApi = (avatar, _id, fullName, phone) => {
     const URL_BACKEND = "/api/v1/user";
     const data = {
         _id: _id,
@@ -86,11 +86,17 @@ const getAccountApi = () => {
 const logOutApi = () => {
     const URL_BACKEND = "/api/v1/auth/logout";
     return axios.post(URL_BACKEND);
- }
+}
+
+
+const fetchAllBookAPi = (current, pageSize) => {
+    const URL_BACKEND = `/api/v1/book?current=${current}&pageSize=${pageSize}`;
+    return axios.get(URL_BACKEND);
+}
 
 
 export {
-    updateUserApi, createUserApi, fetchAllUserAPi, deleteUserApi, handleUploadFile, updateAvatarApi, registerUserApi, loginUserApi, getAccountApi, logOutApi
+    updateUserApi, createUserApi, fetchAllUserAPi, deleteUserApi, handleUploadFile, updateAvatarApi, registerUserApi, loginUserApi, getAccountApi, logOutApi, fetchAllBookAPi
 }
 
 

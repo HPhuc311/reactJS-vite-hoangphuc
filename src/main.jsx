@@ -7,7 +7,7 @@ import {
 import LoginPage from './pages/login.jsx';
 import RegisterPage from './pages/register.jsx';
 import UserPage from './pages/users.jsx';
-import BookPage from './pages/book.jsx';
+import BooksPage from './pages/book.jsx';
 import './style/global.css'
 import TodoApp from './components/ToDo/TodoApp.jsx';
 import ErrorPage from './pages/error.jsx';
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         path: "/books",
         element: (
           <PrivateRoute>
-            <BookPage />
+            <BooksPage />
           </PrivateRoute>)
 
       },

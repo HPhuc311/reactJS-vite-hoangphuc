@@ -48,6 +48,7 @@ const UserTable = (props) => {
             title: 'Id',
             dataIndex: '_id',
             render: (_, record) => {
+                
                 return (
                     <a href='#'
                         onClick={() => {
@@ -95,7 +96,7 @@ const UserTable = (props) => {
     ];
 
 
-    const onChange = (pagination, filters, sorter, extra) => { 
+    const onChange = (pagination) => { 
         //nếu thay đổi trang: current
         if (pagination && pagination.current){
             if(+pagination.current !== +current){
@@ -108,7 +109,6 @@ const UserTable = (props) => {
                 setpageSize(+pagination.pageSize) //"5" -> 5
             }
         }
-        console.log("check pla lpla", {pagination, filters, sorter, extra})
     };
 
     return (
