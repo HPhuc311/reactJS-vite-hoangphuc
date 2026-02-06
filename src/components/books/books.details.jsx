@@ -1,15 +1,8 @@
-import { Drawer } from "antd";
-import { useState } from "react";
+import { Drawer } from "antd"
 
-const ViewBooksDetail = (props) => {
+const BookDetails = (props) => {
 
-    const {
-        isDetailOpen,
-        dataDetail,
-        setIsDetailOpen,
-        setDataDetail } = props
-
-
+    const { dataDetail, setDataDetail, isDetailOpen, setIsDetailOpen } = props
     return (
         <>
             <Drawer
@@ -48,4 +41,4 @@ const ViewBooksDetail = (props) => {
     )
 }
 
-export default ViewBooksDetail;
+export default BookDetails
