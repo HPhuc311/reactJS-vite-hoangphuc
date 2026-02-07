@@ -1,9 +1,12 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Popconfirm, Space, Table } from "antd";
+import { Button, notification, Popconfirm, Space, Table } from "antd";
 import { useEffect, useState } from "react";
-import { fetchAllBookAPi } from "../../services/api.services";
+import { deleteBookApi, fetchAllBookAPi } from "../../services/api.services";
 import BookDetails from "./books.details";
 import CreateBooks from "./books.create";
+import CreateBooksUnc from "./books.create.unc";
+import UpdateBooks from "./book.update";
+import UpdateBooksUnc from "./book.update.unc";
 
 const BooksTable = (props) => {
 
@@ -56,6 +59,23 @@ const BooksTable = (props) => {
             if (+pagination.pageSize !== +pageSize) {
                 setPageSize(+pagination.pageSize)
             }
+        }
+    }
+
+
+    const handleDeleteBooks = async (id) => {
+        const res = await deleteBookApi(id);
+        if (res.data) {
+            notification.success({
+                message: "Delete User",
+                description: "Delete User Thành Công"
+            })
+            await loadBooks();
+        } else {
+            notification.error({
+                message: "Error Delete User",
+                description: JSON.stringify(res.message)
+            })
         }
     }
 
@@ -119,11 +139,15 @@ const BooksTable = (props) => {
             render: (_, record) => (
                 <Space size="middle">
                     <div style={{ display: "flex", gap: "20px" }}>
-                        <EditOutlined style={{ cursor: "pointer", color: "orange" }} />
+                        <EditOutlined style={{ cursor: "pointer", color: "orange" }} 
+                        onClick={() => {
+                            setDataUpdate(record)
+                            setIsModalUpdateOpen(true)
+                        }}/>
                         <Popconfirm
                             title="Delete the task"
                             description="Are you sure to delete this task?"
-                            // onConfirm={() => handleDeleteBooks(record._id)}
+                            onConfirm={() => handleDeleteBooks(record._id)}
                             okText="Yes"
                             cancelText="No"
                             placement='left'
@@ -163,12 +187,6 @@ const BooksTable = (props) => {
                 }
                 onChange={onChange}
             />;
-            {/* <ViewBooksDetail
-                isDetailOpen={isDetailOpen}
-                dataDetail={dataDetail}
-                setIsDetailOpen={setIsDetailOpen}
-                setDataDetail={setDataDetail}
-            /> */}
 
             <BookDetails
                 dataDetail={dataDetail}
@@ -182,6 +200,30 @@ const BooksTable = (props) => {
                 setIsCreatOpen={setIsCreateOpen}
                 loadBooks={loadBooks}
             />
+            {/* <CreateBooksUnc
+                createOpen={createOpen}
+                setIsCreatOpen={setIsCreateOpen}
+                loadBooks={loadBooks}
+            /> */}
+
+
+            {/* <UpdateBooks
+                isModalUpdateOpen={isModalUpdateOpen} 
+                dataUpdate = {dataUpdate}
+                setIsModalUpdateOpen = {setIsModalUpdateOpen}
+                setDataUpdate = {setDataUpdate}
+                loadBooks={loadBooks}
+            /> */}
+
+            <UpdateBooksUnc
+                isModalUpdateOpen={isModalUpdateOpen} 
+                dataUpdate = {dataUpdate}
+                setIsModalUpdateOpen = {setIsModalUpdateOpen}
+                setDataUpdate = {setDataUpdate}
+                loadBooks={loadBooks}
+            />
+
+
 
         </>
     )
