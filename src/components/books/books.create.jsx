@@ -14,7 +14,7 @@ const CreateBooks = (props) => {
     const [selectFile, setSelectFile] = useState(null)
     const [preview, setPreview] = useState(null)
 
-    const [loadCreate, setLoadCreate] = useState(false)
+    // const [loadCreate, setLoadCreate] = useState(false)
 
     const resetModalAndCloseModal = () => {
         setMainText(),
@@ -24,7 +24,7 @@ const CreateBooks = (props) => {
             setCategory(),
             setSelectFile(null),
             setPreview(null)
-            // setIsCreatOpen(false)
+            setIsCreatOpen(false)
     }
 
     const handleOnChangeFile = (event) => {
@@ -41,7 +41,6 @@ const CreateBooks = (props) => {
     }
 
     const submitFile = async () => {
-        setLoadCreate(true)
         if (!selectFile) {
             notification.error({
                 message: "Error Create Book",
@@ -78,7 +77,6 @@ const CreateBooks = (props) => {
                 description: JSON.stringify(resUpload.message)
             })
         }
-        setLoadCreate(false)
     }
 
 
@@ -90,9 +88,6 @@ const CreateBooks = (props) => {
                         title="Basic Modal"
                         closable={{ 'aria-label': 'Custom Close Button' }}
                         okText={"Create new book"}
-                        okButtonProps={{
-                            loading: {}
-                        }}
                         open={createOpen}
                         onOk={() => submitFile()}
                         onCancel={() => resetModalAndCloseModal()}
