@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, notification, Popconfirm, Space, Table } from "antd";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { deleteBookApi, fetchAllBookAPi } from "../../services/api.services";
 import BookDetails from "./books.details";
 import CreateBooks from "./books.create";
@@ -8,7 +8,7 @@ import CreateBooksUnc from "./books.create.unc";
 import UpdateBooks from "./book.update";
 import UpdateBooksUnc from "./book.update.unc";
 
-const BooksTable = (props) => {
+const BooksTable = () => {
 
 
     const [dataBooks, setDataBooks] = useState([])
@@ -25,13 +25,12 @@ const BooksTable = (props) => {
     const [dataUpdate, setDataUpdate] = useState(null);
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
 
-
-    useEffect(() => {
-        loadBooks()
-    }, [current, pageSize]);
+    const [loadingTable, setLoadingTable] = useState(false)
 
 
-    const loadBooks = async () => {
+
+    const loadBooks = useCallback(async () => {
+        setLoadingTable(true)
         const res = await fetchAllBookAPi(current, pageSize)
         if (res.data) {
             setDataBooks(res.data.result)
@@ -39,14 +38,18 @@ const BooksTable = (props) => {
             setPageSize(res.data.meta.pageSize)
             setTotal(res.data.meta.total)
         }
-    }
+        setLoadingTable(false)
+    }, [current, pageSize])
 
-    const handleDeleteBook = async (id) => {
 
-    }
+    useEffect(() => {
+        loadBooks()
+    }, [loadBooks]);
+
+
+
 
     // hàm để thay đổi số trang và các phần tử có trong trang
-
     const onChange = (pagination) => {
         //nếu trang thay đổi trang: current
         if (pagination && pagination.current) {
@@ -186,13 +189,12 @@ const BooksTable = (props) => {
                     }
                 }
                 onChange={onChange}
+                loading={loadingTable}
             />;
 
             <BookDetails
                 dataDetail={dataDetail}
                 setDataDetail={setDataDetail}
-                isDetailOpen={isDetailOpen}
-                setIsDetailOpen={setIsDetailOpen}
             />
 
             <CreateBooks
@@ -200,28 +202,30 @@ const BooksTable = (props) => {
                 setIsCreatOpen={setIsCreateOpen}
                 loadBooks={loadBooks}
             />
+            
             {/* <CreateBooksUnc
                 createOpen={createOpen}
                 setIsCreatOpen={setIsCreateOpen}
                 loadBooks={loadBooks}
+                loadingTable={loadingTable}
+                setLoadingTable={setLoadingTable}
             /> */}
 
-
-            {/* <UpdateBooks
-                isModalUpdateOpen={isModalUpdateOpen} 
-                dataUpdate = {dataUpdate}
-                setIsModalUpdateOpen = {setIsModalUpdateOpen}
-                setDataUpdate = {setDataUpdate}
-                loadBooks={loadBooks}
-            /> */}
-
-            <UpdateBooksUnc
+            <UpdateBooks
                 isModalUpdateOpen={isModalUpdateOpen} 
                 dataUpdate = {dataUpdate}
                 setIsModalUpdateOpen = {setIsModalUpdateOpen}
                 setDataUpdate = {setDataUpdate}
                 loadBooks={loadBooks}
             />
+{/* 
+            <UpdateBooksUnc
+                isModalUpdateOpen={isModalUpdateOpen} 
+                dataUpdate = {dataUpdate}
+                setIsModalUpdateOpen = {setIsModalUpdateOpen}
+                setDataUpdate = {setDataUpdate}
+                loadBooks={loadBooks}
+            /> */}
 
 
 

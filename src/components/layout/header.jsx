@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { Link, useNavigate, } from 'react-router-dom';
+import { Link, useLocation, useNavigate, } from 'react-router-dom';
 import { Menu, message } from 'antd';
-import { AliwangwangFilled, AliwangwangOutlined, BookOutlined, HomeOutlined, LoginOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons';
-import { Children, useContext, useState } from 'react';
+import { AliwangwangOutlined, BookOutlined, HomeOutlined, LoginOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { logOutApi } from '../../services/api.services';
 
@@ -16,9 +16,23 @@ const Header = () => {
 
     const navigate = useNavigate();
 
+    const location = useLocation();
+
     const onClick = e => {
         setCurrent(e.key);
     };
+
+    useEffect(() => {
+        if (location && location.pathname) {
+            const allRoutes = ["users", "books"];
+            const currentRoute = allRoutes.find(item => `/${item}` === location.pathname);
+            if (currentRoute) {
+                setCurrent(currentRoute);
+            } else {
+                setCurrent("home")
+            }
+        }
+    }, [location])
 
     const handleLogOut = async () => {
         const res = await logOutApi();
@@ -52,7 +66,7 @@ const Header = () => {
         },
         {
             label: <Link to={"/books"}>Books</Link>,
-            key: 'products',
+            key: 'books',
             icon: <BookOutlined />,
         },
 

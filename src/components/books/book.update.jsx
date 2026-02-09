@@ -95,15 +95,16 @@ const UpdateBooks = (props) => {
 
     
     const resetModalAndCloseModal = () => {
+        setMainText("")
+        setAuthor("")
         setPrice("")
         setQuantity("")
         setCategory("")
         setSelectFile(null)
         setPreview(null)
-        setIsModalUpdateOpen(false)
-        setAuthor("")
         setId("")
-        setMainText("")
+        setDataUpdate(null)
+        setIsModalUpdateOpen(false)
     }
     return (
         <div>
